@@ -73,7 +73,7 @@ def processRequest(req):
     
     elif req.get("queryResult").get("action") == "TraverserPortsmouth":
          print("avant makeYql")
-         yql_query = makePortsmouthQuery2(req)
+         yql_query = makePortsmouthQuery(req)
          yql_url = baseurl +"crossings?"+yql_query
          print(yql_url)
          headers = {}
@@ -267,7 +267,7 @@ def makeHotelQuery(req):
 
 #Création des réponses :
 
-def makePortsmouthResult(data,req):
+def makePlymouthResult(data,req):
     
     result = req.get("queryResult") #On récupère les différentes informations dans le message précédent(req) ou dans le résultat de l'API (data) 
     parameters = result.get("parameters")
