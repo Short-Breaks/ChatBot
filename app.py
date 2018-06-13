@@ -54,7 +54,7 @@ def webhook():
 def processRequest(req):
     if req.get("queryResult").get("action") == "TraverserVV": # Traitement en fonction de l'action de l'intent dans DialofFlow
         print("avant makeYql")
-        yql_query = makeYqlQuery(req) #Préparation de l'URL pour se connecter à une API 
+        yql_query = makePlymouthQuery(req) #Préparation de l'URL pour se connecter à une API 
         yql_url = baseurl +"crossings?"+yql_query
         print(yql_url)
         headers = {}
@@ -66,14 +66,14 @@ def processRequest(req):
         lu = result.read()
         data = json.loads(lu) #On convertit en JSON le résultat
         print('alolemonde')
-        res = makeWebhookResult(data,req) #On prépare le message qui va être envoyé à l'utilisateur
+        res = makePlymouthResult(data,req) #On prépare le message qui va être envoyé à l'utilisateur
         print("apresWebhook")
         print(res)
         return res
     
     elif req.get("queryResult").get("action") == "TraverserPortsmouth":
          print("avant makeYql")
-         yql_query = makeYqlQuery2(req)
+         yql_query = makePortsmouthQuery2(req)
          yql_url = baseurl +"crossings?"+yql_query
          print(yql_url)
          headers = {}
@@ -84,14 +84,14 @@ def processRequest(req):
          lu = result.read()
          data = json.loads(lu)
          print('alolemonde2')
-         res = makeWebhookResult2(data,req)
+         res = makePortsmouthResult(data,req)
          print("apresWebhook")
          print(res)
          return res
     
     elif req.get("queryResult").get("action") == "TraverserPoole":
          print("avant makeYql")
-         yql_query = makeYqlQuery3(req)
+         yql_query = makePooleQuery(req)
          yql_url = baseurl +"crossings?"+yql_query
          print(yql_url)
          headers = {}
@@ -101,13 +101,13 @@ def processRequest(req):
          result = urlopen(URL)
          lu = result.read()
          data = json.loads(lu)
-         res = makeWebhookResult3(data,req)
+         res = makePooleResult(data,req)
          print("apresWebhook")
          print(res)
          return res
     
     elif req.get("queryResult").get("action") == "HorairePrecise":
-         yql_query = makeYqlQuery4(req)
+         yql_query = makeHoraireQuery(req)
          print(yql_query)
          yql_url = baseurl +"crossings?"+yql_query
          print(yql_url)
@@ -119,7 +119,7 @@ def processRequest(req):
          print(result)
          lu = result.read()
          data = json.loads(lu)
-         res = makeWebhookResult4(data,req)
+         res = makeHoraireResult(data,req)
          return res
     
     elif req.get("queryResult").get("action") == "Quartier":
@@ -172,7 +172,7 @@ def processRequest(req):
 
 #Création des URL de connexion aux APIs : 
 
-def makeYqlQuery(req):
+def makePlymouthQuery(req):
     result = req.get("queryResult") #On récupère les données issus de DialogFlow
     parameters = result.get("parameters") #On stock ces données dans différentes variables
     contexttab = result.get("outputContexts")
@@ -188,7 +188,7 @@ def makeYqlQuery(req):
     #On peut créer le contenu de l'URL et le retourner
     return "departure_ports="+depart+"&arrival_ports="+desti+"&date_from="+dateMod
 
-def makeYqlQuery2(req):
+def makePortsmouthQuery(req):
     result = req.get("queryResult")
     parameters = result.get("parameters")
     contexttab = result.get("outputContexts")
@@ -205,7 +205,7 @@ def makeYqlQuery2(req):
     return "departure_ports="+depart+"&arrival_ports="+desti+"&date_from="+dateMod
 
 
-def makeYqlQuery3(req):
+def makePooleQuery(req):
     result = req.get("queryResult")
     parameters = result.get("parameters")
     contexttab = result.get("outputContexts")
@@ -222,7 +222,7 @@ def makeYqlQuery3(req):
     return "departure_ports="+depart+"&arrival_ports="+desti+"&date_from="+dateMod
 
 
-def makeYqlQuery4(req):
+def makeHoraireQuery(req):
     print("test")
     result = req.get("queryResult")
     param = result.get("parameters")
@@ -267,7 +267,7 @@ def makeHotelQuery(req):
 
 #Création des réponses :
 
-def makeWebhookResult(data,req):
+def makePortsmouthResult(data,req):
     
     result = req.get("queryResult") #On récupère les différentes informations dans le message précédent(req) ou dans le résultat de l'API (data) 
     parameters = result.get("parameters")
@@ -313,7 +313,7 @@ def makeWebhookResult(data,req):
 
 
 
-def makeWebhookResult2(data,req):
+def makePortsmouthResult(data,req):
     
     result = req.get("queryResult")
     parameters = result.get("parameters")
@@ -358,7 +358,7 @@ def makeWebhookResult2(data,req):
 
 
 
-def makeWebhookResult3(data,req):
+def makePooleResult(data,req):
     
     result = req.get("queryResult")
     parameters = result.get("parameters")
@@ -401,7 +401,7 @@ def makeWebhookResult3(data,req):
      ]
     }
 
-def makeWebhookResult4(data,req):
+def makeHoraireResult(data,req):
     
     result = req.get("queryResult")
     param = result.get("parameters")
