@@ -492,7 +492,7 @@ def makeWebhookQuartier(data):
 	    tab["title"]= data[i].get('name')
 	    tab["description"] = data[i].get('headline')
 	    tab["image"] = {}
-	    tab.get("image")["imageUri"] = data[i].get('banner').get('uri')
+	    tab.get("image")["imageUri"] = data[i].get('banner').get('uri')+"/w_1080,c_scale/"+data[i].get('banner').get('filename')
 	    items.append(tab)
 	    i += 1
 		
