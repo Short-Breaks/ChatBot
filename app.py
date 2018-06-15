@@ -526,7 +526,7 @@ def makeWebhookHotel(data):
     print(name)
     prix = data[0].get('starting_price').get('amount')
     print(prix)
-    ImageUri = data[0].get('images')[0].get('uri')
+    ImageUri = data[0].get('images')[0].get('uri')+"/w_1080,c_scale/"+data[0].get('images')[0].get('filename')
     print(ImageUri)
     return {
 	"fulfillmentMessages": 
